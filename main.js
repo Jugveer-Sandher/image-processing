@@ -13,4 +13,11 @@ const IOhandler = require("./IOhandler"),
   pathUnzipped = `${__dirname}/unzipped`,
   pathProcessed = `${__dirname}/grayscaled`;
 
-
+IOhandler.unzip(zipFilePath, pathUnzipped)
+  .then(() => IOhandler.readDir(pathUnzipped))
+  .then((data) => {
+    data.forEach((file, index) => {
+      IOhandler.grayScale(file, pathProcessed, index)
+    });
+  })
+  .catch(e => console.log("ERROR", e));
